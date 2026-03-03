@@ -17,7 +17,8 @@ collections:
       - { label: "標題", name: "title", widget: "string" }
       - { label: "日期", name: "date", widget: "datetime" }
       - { label: "分類", name: "category", widget: "select", options: ["活動", "公告", "優惠"] }
-      - { label: "內容", name: "body", widget: "markdown" }
+      - { label: "封面圖片", name: "image", widget: "image", required: false }
+      - { label: "內容", name: "body", widget: "text" }
 
   - name: "reviews"
     label: "學員評價"
@@ -26,8 +27,9 @@ collections:
     slug: "{{slug}}"
     fields:
       - { label: "學員姓名", name: "name", widget: "string" }
+      - { label: "評分（1-5）", name: "rating", widget: "number", min: 1, max: 5, default: 5 }
+      - { label: "訓練類型", name: "type", widget: "string", hint: "例如：核心訓練、體態雕塑" }
       - { label: "評價內容", name: "body", widget: "text" }
-      - { label: "星級", name: "stars", widget: "number", min: 1, max: 5 }
 
   - name: "pricing"
     label: "收費標準"
@@ -36,5 +38,17 @@ collections:
     slug: "{{slug}}"
     fields:
       - { label: "方案名稱", name: "title", widget: "string" }
-      - { label: "價格", name: "price", widget: "string" }
+      - { label: "價格", name: "price", widget: "string", hint: "例如：NT$ 2,800／月" }
       - { label: "說明", name: "description", widget: "text" }
+      - { label: "排序", name: "order", widget: "number", default: 1 }
+
+  - name: "health"
+    label: "健康專欄"
+    folder: "_data/health"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "文章標題", name: "title", widget: "string" }
+      - { label: "日期", name: "date", widget: "datetime" }
+      - { label: "封面圖片", name: "image", widget: "image", required: false }
+      - { label: "文章內容", name: "body", widget: "text" }
