@@ -176,27 +176,55 @@ async function loadNews() {
 // 載入學員評價
 async function loadReviews() {
   const grid = document.getElementById('reviews-grid');
-  if (!grid) return;
+  const homeGrid = document.getElementById('home-reviews-grid');
+  if (!grid && !homeGrid) return;
   const items = await fetchGithubFolder('_data/reviews');
   if (!items.length) return;
-  grid.innerHTML = items.map(item => {
-    const stars = '★'.repeat(parseInt(item.rating) || 5);
-    const avatar = item.name ? item.name.charAt(0) : '學';
-    const type = item.type || '';
-    const body = item._body || item.body || '';
-    return `
-      <div class="review-card-full">
-        <div class="review-stars">${stars}</div>
-        <p class="review-text">「${body}」</p>
-        <div class="review-author">
-          <div class="author-avatar">${avatar}</div>
-          <div>
-            <strong>${item.name}</strong>
-            <span>${type}</span>
+
+  // 完整版（評價頁）
+  if (grid) {
+    grid.innerHTML = items.map(item => {
+      const stars = '★'.repeat(parseInt(item.rating) || 5);
+      const avatar = item.name ? item.name.charAt(0) : '學';
+      const type = item.type || '';
+      const body = item._body || item.body || '';
+      return `
+        <div class="review-card-full">
+          <div class="review-stars">${stars}</div>
+          <p class="review-text">「${body}」</p>
+          <div class="review-author">
+            <div class="author-avatar">${avatar}</div>
+            <div>
+              <strong>${item.name}</strong>
+              <span>${type}</span>
+            </div>
           </div>
-        </div>
-      </div>`;
-  }).join('');
+        </div>`;
+    }).join('');
+  }
+
+  // 首頁預覽（只取前3筆，用小卡樣式）
+  if (homeGrid) {
+    homeGrid.innerHTML = items.slice(0, 3).map(item => {
+      const stars = '★'.repeat(parseInt(item.rating) || 5);
+      const avatar = item.name ? item.name.charAt(0) : '學';
+      const type = item.type || '';
+      const body = item._body || item.body || '';
+      return `
+        <div class="review-card">
+          <div class="review-stars">${stars}</div>
+          <p class="review-text">「${body.substring(0, 60)}${body.length > 60 ? '...' : ''}」</p>
+          <div class="review-author">
+            <div class="author-avatar">${avatar}</div>
+            <div>
+              <strong>${item.name}</strong>
+              <span>${type}</span>
+            </div>
+          </div>
+        </div>`;
+    }).join('');
+  }
+
   setTimeout(() => initReveal(), 100);
 }
 
@@ -221,6 +249,64 @@ async function loadPricing() {
   setTimeout(() => initReveal(), 100);
 }
 
+// 載入健康專欄
+async function loadHealth() {
+  const featured = document.getElementById('health-featured');
+  const grid = document.getElementById('health-grid');
+  if (!featured || !grid) return;
+
+  const items = await fetchGithubFolder('_data/health');
+  if (!items.length) {
+    featured.innerHTML = '<p style="color:#aaa;text-align:center;padding:2rem;">尚無文章</p>';
+    return;
+  }
+
+  // 依日期排序（新到舊）
+  items.sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0));
+
+  // 第一篇作為精選
+  const top = items[0];
+  const topImg = top.image
+    ? `<img src="${top.image}" alt="${top.title}" style="width:100%;height:100%;object-fit:cover;border-radius:12px;">`
+    : `<div class="img-placeholder tall"><span>精選文章封面</span></div>`;
+  const topBody = top._body || top.description || '';
+  featured.innerHTML = `
+    <div class="health-featured-img">${topImg}</div>
+    <div class="health-featured-text">
+      <div class="news-tag">精選</div>
+      <h2>${top.title}</h2>
+      <p>${topBody.substring(0, 120)}${topBody.length > 120 ? '...' : ''}</p>
+      <a href="#" class="btn-primary" style="display:inline-block;margin-top:1rem;">閱讀全文</a>
+    </div>`;
+
+  // 其餘文章放 grid
+  const rest = items.slice(1);
+  if (!rest.length) {
+    grid.innerHTML = '';
+    setTimeout(() => initReveal(), 100);
+    return;
+  }
+  grid.innerHTML = rest.map(item => {
+    const body = item._body || item.description || '';
+    const category = item.category || '專欄';
+    const img = item.image
+      ? `<img src="${item.image}" alt="${item.title}" style="width:100%;height:100%;object-fit:cover;">`
+      : `<div class="img-placeholder small"><span>圖片</span></div>`;
+    return `
+      <article class="health-card">
+        <div class="health-card-img">${img}</div>
+        <div class="health-card-body">
+          <div class="news-tag">${category}</div>
+          <h3>${item.title}</h3>
+          <p>${body.substring(0, 80)}${body.length > 80 ? '...' : ''}</p>
+          <a href="#" class="news-more">閱讀更多 →</a>
+        </div>
+      </article>`;
+  }).join('');
+
+  setTimeout(() => initReveal(), 100);
+}
+
 // ----- 初始化 -----
 document.addEventListener('DOMContentLoaded', function() {
   // 預設顯示首頁
@@ -230,6 +316,7 @@ document.addEventListener('DOMContentLoaded', function() {
   loadNews();
   loadReviews();
   loadPricing();
+  loadHealth();
 
   // 阻止 nav-link 的預設連結行為
   document.querySelectorAll('.nav-link').forEach(link => {
