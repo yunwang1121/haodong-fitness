@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>好動徒手 - 運動工作室</title>
   <link rel="stylesheet" href="style.css" />
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet" />
 </head>
 <body>
@@ -154,40 +153,8 @@
           <p class="section-tag">TESTIMONIALS</p>
           <h2 class="section-title">學員怎麼說</h2>
         </div>
-        <div class="reviews-grid">
-          <div class="review-card">
-            <div class="review-stars">★★★★★</div>
-            <p class="review-text">「跟著好動徒手訓練三個月，不僅體態改善，連腰痠背痛的問題都好多了！教練非常專業又有耐心。」</p>
-            <div class="review-author">
-              <div class="author-avatar">林</div>
-              <div>
-                <strong>林小姐</strong>
-                <span>上班族・訓練3個月</span>
-              </div>
-            </div>
-          </div>
-          <div class="review-card">
-            <div class="review-stars">★★★★★</div>
-            <p class="review-text">「原本以為徒手訓練很簡單，上了才知道學問很深。教練讓我從零開始，現在已經可以做很多以前做不到的動作了！」</p>
-            <div class="review-author">
-              <div class="author-avatar">陳</div>
-              <div>
-                <strong>陳先生</strong>
-                <span>工程師・訓練6個月</span>
-              </div>
-            </div>
-          </div>
-          <div class="review-card">
-            <div class="review-stars">★★★★★</div>
-            <p class="review-text">「工作室環境很舒適，課程安排很有系統。每次上完課都覺得很充實，真的有在進步！強烈推薦給大家。」</p>
-            <div class="review-author">
-              <div class="author-avatar">王</div>
-              <div>
-                <strong>王小姐</strong>
-                <span>護理師・訓練1年</span>
-              </div>
-            </div>
-          </div>
+        <div class="reviews-grid" id="home-reviews-grid">
+          <div class="loading">載入中...</div>
         </div>
         <div class="section-cta">
           <a href="#" class="btn-outline-dark" onclick="showPage('reviews')">查看更多評價</a>
@@ -255,6 +222,48 @@
     <section class="section">
       <div class="container">
         <div class="news-grid" id="news-grid">
+          <article class="news-card">
+            <div class="news-date">2025 / 06 / 01</div>
+            <div class="news-tag">活動</div>
+            <h3>【暑期特惠】體驗課買一送一</h3>
+            <p>六月份推出暑期特惠活動，邀請朋友一起來體驗，買一堂體驗課即贈送一堂給您的好友！</p>
+            <a href="#" class="news-more">閱讀更多 →</a>
+          </article>
+          <article class="news-card">
+            <div class="news-date">2025 / 05 / 15</div>
+            <div class="news-tag">課程</div>
+            <h3>新課程上線｜柔韌度專項訓練班</h3>
+            <p>全新柔韌度訓練課程正式開課！適合想改善柔軟度、緩解肌肉緊繃的學員，名額有限，歡迎報名。</p>
+            <a href="#" class="news-more">閱讀更多 →</a>
+          </article>
+          <article class="news-card">
+            <div class="news-date">2025 / 04 / 28</div>
+            <div class="news-tag">公告</div>
+            <h3>五一連假課表調整公告</h3>
+            <p>五月一日勞動節工作室休館一天，其餘假日照常上課，造成不便敬請見諒。</p>
+            <a href="#" class="news-more">閱讀更多 →</a>
+          </article>
+          <article class="news-card">
+            <div class="news-date">2025 / 04 / 10</div>
+            <div class="news-tag">活動</div>
+            <h3>好動徒手一週年感謝祭</h3>
+            <p>感謝所有學員一年來的支持！一週年慶推出限時優惠，老學員課程8折，新學員體驗課免費。</p>
+            <a href="#" class="news-more">閱讀更多 →</a>
+          </article>
+          <article class="news-card">
+            <div class="news-date">2025 / 03 / 20</div>
+            <div class="news-tag">課程</div>
+            <h3>親子徒手體能課程開始招生</h3>
+            <p>專為國小生設計的親子徒手課程開始招生！讓孩子從小養成運動習慣，培養良好體能。</p>
+            <a href="#" class="news-more">閱讀更多 →</a>
+          </article>
+          <article class="news-card">
+            <div class="news-date">2025 / 03 / 01</div>
+            <div class="news-tag">公告</div>
+            <h3>新場地啟用通知</h3>
+            <p>好動徒手正式遷入全新場地！空間更寬敞、設備更完善，歡迎新舊學員蒞臨參觀。</p>
+            <a href="#" class="news-more">閱讀更多 →</a>
+          </article>
         </div>
       </div>
     </section>
@@ -274,86 +283,12 @@
     </div>
     <section class="section">
       <div class="container">
-        <div class="health-featured">
-          <div class="health-featured-img">
-            <div class="img-placeholder tall">
-              <span>精選文章封面</span>
-            </div>
-          </div>
-          <div class="health-featured-text">
-            <div class="news-tag">精選</div>
-            <h2>徒手訓練入門指南：從零開始的完整計畫</h2>
-            <p>很多人以為徒手訓練就只是做伏地挺身和深蹲，但真正的徒手訓練是一套完整的訓練體系。本文將帶你了解徒手訓練的核心概念，以及如何制定適合自己的入門計畫...</p>
-            <a href="#" class="btn-primary" style="display:inline-block;margin-top:1rem;">閱讀全文</a>
-          </div>
+        <!-- 精選文章（動態載入） -->
+        <div class="health-featured" id="health-featured">
+          <div class="loading">載入中...</div>
         </div>
-        <div class="health-grid">
-          <article class="health-card">
-            <div class="health-card-img">
-              <div class="img-placeholder small"><span>圖片</span></div>
-            </div>
-            <div class="health-card-body">
-              <div class="news-tag">訓練</div>
-              <h3>深蹲的五大常見錯誤與修正方法</h3>
-              <p>深蹲是訓練下肢最基本的動作，但也是最容易做錯的動作之一。了解常見錯誤，才能避免受傷，真正練到目標肌群。</p>
-              <a href="#" class="news-more">閱讀更多 →</a>
-            </div>
-          </article>
-          <article class="health-card">
-            <div class="health-card-img">
-              <div class="img-placeholder small"><span>圖片</span></div>
-            </div>
-            <div class="health-card-body">
-              <div class="news-tag">營養</div>
-              <h3>運動前後吃什麼？補充能量的正確時機</h3>
-              <p>訓練效果好不好，吃對東西很重要！運動前後的營養補充，直接影響你的表現與恢復速度。</p>
-              <a href="#" class="news-more">閱讀更多 →</a>
-            </div>
-          </article>
-          <article class="health-card">
-            <div class="health-card-img">
-              <div class="img-placeholder small"><span>圖片</span></div>
-            </div>
-            <div class="health-card-body">
-              <div class="news-tag">體態</div>
-              <h3>久坐族必看：改善骨盆前傾的3個動作</h3>
-              <p>長時間坐辦公室容易造成骨盆前傾、腰痠背痛。這三個簡單的徒手動作，每天10分鐘就能有效改善。</p>
-              <a href="#" class="news-more">閱讀更多 →</a>
-            </div>
-          </article>
-          <article class="health-card">
-            <div class="health-card-img">
-              <div class="img-placeholder small"><span>圖片</span></div>
-            </div>
-            <div class="health-card-body">
-              <div class="news-tag">恢復</div>
-              <h3>訓練後的恢復比你想的更重要</h3>
-              <p>很多人只注重訓練強度，卻忽略了恢復。其實肌肉的生長發生在休息時，學會正確恢復才能持續進步。</p>
-              <a href="#" class="news-more">閱讀更多 →</a>
-            </div>
-          </article>
-          <article class="health-card">
-            <div class="health-card-img">
-              <div class="img-placeholder small"><span>圖片</span></div>
-            </div>
-            <div class="health-card-body">
-              <div class="news-tag">訓練</div>
-              <h3>如何判斷自己的訓練強度是否足夠？</h3>
-              <p>訓練太輕沒效果，太重容易受傷。如何找到剛好的強度？本文教你用幾個簡單指標來自我評估。</p>
-              <a href="#" class="news-more">閱讀更多 →</a>
-            </div>
-          </article>
-          <article class="health-card">
-            <div class="health-card-img">
-              <div class="img-placeholder small"><span>圖片</span></div>
-            </div>
-            <div class="health-card-body">
-              <div class="news-tag">心態</div>
-              <h3>建立運動習慣的心理學：如何讓自己持之以恆</h3>
-              <p>運動最難的不是動作本身，而是「持續做」。從行為心理學角度，分享建立穩固運動習慣的方法。</p>
-              <a href="#" class="news-more">閱讀更多 →</a>
-            </div>
-          </article>
+        <!-- 文章列表（動態載入） -->
+        <div class="health-grid" id="health-grid">
         </div>
       </div>
     </section>
@@ -378,73 +313,8 @@
           <div class="rating-stars-big">★★★★★</div>
           <div class="rating-count">超過 500 位學員的好評</div>
         </div>
-        <div class="reviews-full-grid">
-          <div class="review-card-full">
-            <div class="review-stars">★★★★★</div>
-            <p class="review-text">「跟著好動徒手訓練三個月，不僅體態改善，連腰痠背痛的問題都好多了！教練非常專業又有耐心，每次都會仔細說明動作要領，讓我對自己的身體有更深的認識。」</p>
-            <div class="review-author">
-              <div class="author-avatar">林</div>
-              <div>
-                <strong>林小姐</strong>
-                <span>上班族・訓練3個月</span>
-              </div>
-            </div>
-          </div>
-          <div class="review-card-full">
-            <div class="review-stars">★★★★★</div>
-            <p class="review-text">「原本以為徒手訓練很簡單，上了才知道學問很深。教練讓我從零開始，循序漸進，現在已經可以做很多以前做不到的動作了！工作室的氛圍也很好，很舒服。」</p>
-            <div class="review-author">
-              <div class="author-avatar">陳</div>
-              <div>
-                <strong>陳先生</strong>
-                <span>工程師・訓練6個月</span>
-              </div>
-            </div>
-          </div>
-          <div class="review-card-full">
-            <div class="review-stars">★★★★★</div>
-            <p class="review-text">「工作室環境很舒適，課程安排很有系統。每次上完課都覺得很充實，真的有在進步！教練的解說非常清楚，即使是動作不標準也會很有耐心地幫你調整。強烈推薦！」</p>
-            <div class="review-author">
-              <div class="author-avatar">王</div>
-              <div>
-                <strong>王小姐</strong>
-                <span>護理師・訓練1年</span>
-              </div>
-            </div>
-          </div>
-          <div class="review-card-full">
-            <div class="review-stars">★★★★★</div>
-            <p class="review-text">「產後恢復選擇了好動徒手，教練幫我規劃了非常安全漸進的課程。四個月後不僅回到產前體重，核心力量比以前還要好！真的很感謝。」</p>
-            <div class="review-author">
-              <div class="author-avatar">張</div>
-              <div>
-                <strong>張媽媽</strong>
-                <span>全職媽媽・訓練4個月</span>
-              </div>
-            </div>
-          </div>
-          <div class="review-card-full">
-            <div class="review-stars">★★★★★</div>
-            <p class="review-text">「本來對運動完全沒興趣，被朋友拉來體驗之後完全愛上！教練很會帶動氣氛，讓運動變得很有趣。現在每週來三次，已經成為生活的一部分了。」</p>
-            <div class="review-author">
-              <div class="author-avatar">李</div>
-              <div>
-                <strong>李先生</strong>
-                <span>自由業・訓練8個月</span>
-              </div>
-            </div>
-          </div>
-          <div class="review-card-full">
-            <div class="review-stars">★★★★★</div>
-            <p class="review-text">「年紀大了，本來擔心身體承受不住，但教練非常貼心地幫我調整適合我年齡的動作強度。現在膝蓋比以前靈活多了，走路也比較有力氣！」</p>
-            <div class="review-author">
-              <div class="author-avatar">黃</div>
-              <div>
-                <strong>黃阿姨</strong>
-                <span>退休族・訓練2年</span>
-              </div>
-            </div>
-          </div>
+        <div class="reviews-full-grid" id="reviews-grid">
+          <div class="loading">載入中...</div>
         </div>
         <div class="section-cta">
           <p style="margin-bottom:1rem;color:#7a6552;">想成為下一個見證者嗎？</p>
@@ -471,48 +341,8 @@
         <div class="pricing-intro">
           <p>所有方案皆包含完整課程內容，歡迎先預約免費體驗課，找到最適合你的方案。</p>
         </div>
-        <div class="pricing-grid">
-          <div class="pricing-card">
-            <div class="pricing-badge">入門</div>
-            <h3>體驗課</h3>
-            <div class="price">免費</div>
-            <div class="price-unit">首次限定</div>
-            <ul class="pricing-list">
-              <li>✓ 60 分鐘體驗課</li>
-              <li>✓ 體能評估</li>
-              <li>✓ 目標設定諮詢</li>
-              <li>✓ 課程規劃建議</li>
-            </ul>
-            <a href="https://line.me/R/ti/p/@PLACEHOLDER" target="_blank" class="btn-primary">立即預約</a>
-          </div>
-          <div class="pricing-card featured">
-            <div class="pricing-badge popular">最熱門</div>
-            <h3>月課包</h3>
-            <div class="price">請洽詢</div>
-            <div class="price-unit">/ 每月</div>
-            <ul class="pricing-list">
-              <li>✓ 每週 2 堂課</li>
-              <li>✓ 每堂 60 分鐘</li>
-              <li>✓ 小班制（最多6人）</li>
-              <li>✓ 進度追蹤紀錄</li>
-              <li>✓ LINE 諮詢服務</li>
-            </ul>
-            <a href="https://line.me/R/ti/p/@PLACEHOLDER" target="_blank" class="btn-primary">立即諮詢</a>
-          </div>
-          <div class="pricing-card">
-            <div class="pricing-badge">進階</div>
-            <h3>私人教練</h3>
-            <div class="price">請洽詢</div>
-            <div class="price-unit">/ 每堂</div>
-            <ul class="pricing-list">
-              <li>✓ 一對一專屬訓練</li>
-              <li>✓ 完全客製化課程</li>
-              <li>✓ 彈性預約時段</li>
-              <li>✓ 詳細動作解析</li>
-              <li>✓ 飲食建議諮詢</li>
-            </ul>
-            <a href="https://line.me/R/ti/p/@PLACEHOLDER" target="_blank" class="btn-outline-dark">立即諮詢</a>
-          </div>
+        <div class="pricing-grid" id="pricing-grid">
+          <div class="loading">載入中...</div>
         </div>
         <div class="pricing-note">
           <h4>注意事項</h4>
