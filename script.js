@@ -130,15 +130,21 @@ function parseFrontmatter(text) {
 // 從 GitHub 讀取資料夾下所有檔案
 async function fetchGithubFolder(folder) {
   try {
-    const res = await fetch(`${GITHUB_API}/${folder}?ref=${GITHUB_BRANCH}`);
+    const timestamp = Date.now();
+    const res = await fetch(`${GITHUB_API}/${folder}?ref=${GITHUB_BRANCH}&_t=${timestamp}`);
     if (!res.ok) return [];
     const files = await res.json();
     const mdFiles = files.filter(f => f.name.endsWith('.md') || f.name.endsWith('.json'));
     const contents = await Promise.all(
-      mdFiles.map(f => fetch(f.download_url).then(r => r.text()))
+      mdFiles.map(f => {
+        // 直接用 raw URL 讀取內容，避免 base64 解碼問題
+        const rawUrl = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/${GITHUB_BRANCH}/${folder}/${f.name}?_t=${timestamp}`;
+        return fetch(rawUrl, { cache: 'no-store' }).then(r => r.text());
+      })
     );
     return contents.map(parseFrontmatter).filter(d => d.title);
   } catch (e) {
+    console.error('fetchGithubFolder error:', e);
     return [];
   }
 }
