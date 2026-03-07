@@ -73,10 +73,10 @@ ul { list-style: none; }
 
 .nav-logo {
   font-family: var(--font-serif);
-  font-size: 1.0rem;
+  font-size: 1rem;
   font-weight: 700;
   color: var(--primary-dk);
-  letter-spacing: 0.05em;
+  letter-spacing: 0.03em;
   margin-right: auto;
   white-space: nowrap;
 }
