@@ -164,7 +164,11 @@ async function loadReviews() {
   const homeGrid = document.getElementById('home-reviews-grid');
   if (!grid && !homeGrid) return;
   const items = await fetchGithubFolder('_data/reviews');
-  if (!items.length) return;
+  if (!items.length) {
+  if (grid) grid.innerHTML = '<p style="text-align:center;color:#888;">暫無評價</p>';
+  if (homeGrid) homeGrid.innerHTML = '<p style="text-align:center;color:#888;">暫無評價</p>';
+  return;
+}
 
   if (grid) {
     grid.innerHTML = items.map(item => {
