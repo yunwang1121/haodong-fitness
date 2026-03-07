@@ -136,7 +136,11 @@ async function loadNews() {
   const grid = document.getElementById('news-grid');
   if (!grid) return;
   const items = await fetchGithubFolder('_data/news');
-  if (!items.length) return;
+  if (!items.length) {
+  if (grid) grid.innerHTML = '<p style="text-align:center;color:#888;">暫無評價</p>';
+  if (homeGrid) homeGrid.innerHTML = '<p style="text-align:center;color:#888;">暫無評價</p>';
+  return;
+}
   items.sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0));
   grid.innerHTML = items.map(item => {
     const date = item.date ? item.date.substring(0, 10).replace(/-/g, ' / ') : '';
