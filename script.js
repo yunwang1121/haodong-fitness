@@ -5,29 +5,19 @@
 
 // ----- 頁面切換 -----
 function showPage(pageId) {
-  // 隱藏所有頁面
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-
-  // 顯示目標頁面
   const target = document.getElementById('page-' + pageId);
   if (target) {
     target.classList.add('active');
-    // 滾動到頂部
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
-
-  // 更新導覽列 active 狀態
   document.querySelectorAll('.nav-link').forEach(link => {
     link.classList.remove('active');
     if (link.getAttribute('onclick') && link.getAttribute('onclick').includes(pageId)) {
       link.classList.add('active');
     }
   });
-
-  // 關閉手機選單
   closeMenu();
-
-  // 初始化 reveal 動畫
   setTimeout(() => initReveal(), 100);
 }
 
@@ -54,7 +44,6 @@ function closeMenu() {
   document.getElementById('hamburger').classList.remove('open');
 }
 
-// 點擊選單以外區域關閉
 document.addEventListener('click', function(e) {
   const nav = document.querySelector('.nav-container');
   if (!nav.contains(e.target)) closeMenu();
@@ -73,13 +62,11 @@ window.addEventListener('scroll', function() {
 // ----- Scroll Reveal 動畫 -----
 function initReveal() {
   const els = document.querySelectorAll('.page.active .section-header, .page.active .service-card, .page.active .review-card, .page.active .news-card, .page.active .health-card, .page.active .pricing-card, .page.active .stat-item, .page.active .contact-item, .page.active .about-grid > *, .page.active .review-card-full, .page.active .health-featured, .page.active .reviews-summary');
-
   els.forEach(el => {
     if (!el.classList.contains('reveal')) {
       el.classList.add('reveal');
     }
   });
-
   checkReveal();
 }
 
@@ -88,7 +75,6 @@ function checkReveal() {
   reveals.forEach((el, i) => {
     const rect = el.getBoundingClientRect();
     if (rect.top < window.innerHeight - 60) {
-      // 加入延遲使卡片依序出現
       setTimeout(() => el.classList.add('visible'), i * 60);
     }
   });
@@ -111,7 +97,6 @@ const GITHUB_REPO = 'haodong-fitness';
 const GITHUB_BRANCH = 'main';
 const GITHUB_API = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents`;
 
-// 解析 Markdown frontmatter（--- key: value --- 格式）
 function parseFrontmatter(text) {
   const match = text.match(/^---\n([\s\S]*?)\n---/);
   if (!match) return {};
@@ -122,12 +107,10 @@ function parseFrontmatter(text) {
       data[key.trim()] = rest.join(':').trim().replace(/^["']|["']$/g, '');
     }
   });
-  // 取得 frontmatter 之後的 body 內容
   data._body = text.replace(/^---\n[\s\S]*?\n---\n?/, '').trim();
   return data;
 }
 
-// 從 GitHub 讀取資料夾下所有檔案
 async function fetchGithubFolder(folder) {
   try {
     const timestamp = Date.now();
@@ -137,7 +120,6 @@ async function fetchGithubFolder(folder) {
     const mdFiles = files.filter(f => f.name.endsWith('.md') || f.name.endsWith('.json'));
     const contents = await Promise.all(
       mdFiles.map(f => {
-        // 直接用 raw URL 讀取內容，避免 base64 解碼問題
         const rawUrl = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/${GITHUB_BRANCH}/${folder}/${f.name}?_t=${timestamp}`;
         return fetch(rawUrl, { cache: 'no-store' }).then(r => r.text());
       })
@@ -154,8 +136,7 @@ async function loadNews() {
   const grid = document.getElementById('news-grid');
   if (!grid) return;
   const items = await fetchGithubFolder('_data/news');
-  if (!items.length) return; // 沒資料就保留靜態內容
-  // 依日期排序（新到舊）
+  if (!items.length) return;
   items.sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0));
   grid.innerHTML = items.map(item => {
     const date = item.date ? item.date.substring(0, 10).replace(/-/g, ' / ') : '';
@@ -181,7 +162,6 @@ async function loadReviews() {
   const items = await fetchGithubFolder('_data/reviews');
   if (!items.length) return;
 
-  // 完整版（評價頁）
   if (grid) {
     grid.innerHTML = items.map(item => {
       const stars = '★'.repeat(parseInt(item.rating) || 5);
@@ -203,7 +183,6 @@ async function loadReviews() {
     }).join('');
   }
 
-  // 首頁預覽（只取前3筆，用小卡樣式）
   if (homeGrid) {
     homeGrid.innerHTML = items.slice(0, 3).map(item => {
       const stars = '★'.repeat(parseInt(item.rating) || 5);
@@ -234,7 +213,6 @@ async function loadPricing() {
   if (!grid) return;
   const items = await fetchGithubFolder('_data/pricing');
   if (!items.length) return;
-  // 依 order 排序
   items.sort((a, b) => parseInt(a.order || 99) - parseInt(b.order || 99));
   grid.innerHTML = items.map(item => {
     const body = item._body || item.description || '';
@@ -261,10 +239,8 @@ async function loadHealth() {
     return;
   }
 
-  // 依日期排序（新到舊）
   items.sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0));
 
-  // 第一篇作為精選
   const top = items[0];
   const topImg = top.image
     ? `<img src="${top.image}" alt="${top.title}" style="width:100%;height:100%;object-fit:cover;border-radius:12px;">`
@@ -279,7 +255,6 @@ async function loadHealth() {
       <a href="#" class="btn-primary" style="display:inline-block;margin-top:1rem;">閱讀全文</a>
     </div>`;
 
-  // 其餘文章放 grid
   const rest = items.slice(1);
   if (!rest.length) {
     grid.innerHTML = '';
@@ -309,23 +284,18 @@ async function loadHealth() {
 
 // ----- 初始化 -----
 document.addEventListener('DOMContentLoaded', function() {
-  // 預設顯示首頁
   showPage('home');
-
-  // 載入後台動態內容
   loadNews();
   loadReviews();
   loadPricing();
   loadHealth();
 
-  // 阻止 nav-link 的預設連結行為
   document.querySelectorAll('.nav-link').forEach(link => {
     link.addEventListener('click', function(e) {
       e.preventDefault();
     });
   });
 
-  // 阻止 btn-outline scroll 的預設行為
   document.querySelectorAll('a[onclick*="scrollToSection"]').forEach(a => {
     a.addEventListener('click', function(e) {
       e.preventDefault();
