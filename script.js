@@ -230,7 +230,7 @@ async function loadPricing() {
         <div class="pricing-badge">${item.title}</div>
         <div class="pricing-price">${item.price}</div>
         <p>${body}</p>
-        <a href="https://line.me/R/ti/p/@PLACEHOLDER" target="_blank" class="btn-outline-dark">立即報名</a>
+        <a href="https://line.me/R/ti/p/@230omexn" target="_blank" class="btn-outline-dark">立即報名</a>
       </div>`;
   }).join('');
   setTimeout(() => initReveal(), 100);
