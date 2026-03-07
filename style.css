@@ -972,3 +972,22 @@ ul { list-style: none; }
   .pricing-grid { grid-template-columns: 1fr; }
   .health-featured { padding: 1.5rem; }
 }
+
+
+/* ===================================================
+   RWD — Large Screen
+   =================================================== */
+@media (min-width: 1024px) {
+  .nav-container {
+    gap: 0.5rem;
+  }
+  .nav-link {
+    font-size: 0.8rem;
+    padding: 0.5rem 0.5rem;
+  }
+  .btn-book {
+    font-size: 0.82rem;
+    padding: 0.55rem 1rem;
+    letter-spacing: 0.02em;
+  }
+}
