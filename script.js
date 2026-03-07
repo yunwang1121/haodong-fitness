@@ -96,6 +96,7 @@ const GITHUB_USER = 'yunwang1121';
 const GITHUB_REPO = 'haodong-fitness';
 const GITHUB_BRANCH = 'main';
 const GITHUB_API = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents`;
+const BASE_URL = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/${GITHUB_BRANCH}`;
 
 function parseFrontmatter(text) {
   const normalized = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
@@ -121,7 +122,7 @@ async function fetchGithubFolder(folder) {
     const mdFiles = files.filter(f => f.name.endsWith('.md') || f.name.endsWith('.json'));
     const contents = await Promise.all(
       mdFiles.map(f => {
-        const rawUrl = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/${GITHUB_BRANCH}/${folder}/${f.name}?_t=${timestamp}`;
+        const rawUrl = `${BASE_URL}/${folder}/${f.name}?_t=${timestamp}`;
         return fetch(rawUrl, { cache: 'no-store' }).then(r => r.text());
       })
     );
@@ -251,7 +252,7 @@ async function loadHealth() {
 
   const top = items[0];
   const topImg = top.image
-    ? `<img src="${top.image}" alt="${top.title}" style="width:100%;height:100%;object-fit:cover;border-radius:12px;">`
+    ? `<img src="${BASE_URL}${top.image}" alt="${top.title}" style="width:100%;height:100%;object-fit:cover;border-radius:12px;">`
     : `<div class="img-placeholder tall"><span>精選文章封面</span></div>`;
   const topBody = top._body || top.description || '';
   featured.innerHTML = `
@@ -273,7 +274,7 @@ async function loadHealth() {
     const body = item._body || item.description || '';
     const category = item.category || '專欄';
     const img = item.image
-      ? `<img src="${item.image}" alt="${item.title}" style="width:100%;height:100%;object-fit:cover;">`
+      ? `<img src="${BASE_URL}${item.image}" alt="${item.title}" style="width:100%;height:100%;object-fit:cover;">`
       : `<div class="img-placeholder small"><span>圖片</span></div>`;
     return `
       <article class="health-card">
