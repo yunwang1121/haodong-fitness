@@ -175,7 +175,7 @@ async function loadReviews() {
       const stars = '★'.repeat(parseInt(item.rating) || 5);
       const avatar = item.name ? item.name.charAt(0) : '學';
       const type = item.type || '';
-      const body = item._body || item.body || '';
+      const body = item.review || item._body || item.body || '';
       return `
         <div class="review-card-full">
           <div class="review-stars">${stars}</div>
@@ -196,7 +196,7 @@ async function loadReviews() {
       const stars = '★'.repeat(parseInt(item.rating) || 5);
       const avatar = item.name ? item.name.charAt(0) : '學';
       const type = item.type || '';
-      const body = item._body || item.body || '';
+      const body = item.review || item._body || item.body || '';
       return `
         <div class="review-card">
           <div class="review-stars">${stars}</div>
