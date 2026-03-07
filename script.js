@@ -98,7 +98,8 @@ const GITHUB_BRANCH = 'main';
 const GITHUB_API = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents`;
 
 function parseFrontmatter(text) {
-  const match = text.match(/^---\n([\s\S]*?)\n---/);
+  const normalized = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+  const match = normalized.match
   if (!match) return {};
   const data = {};
   match[1].split('\n').forEach(line => {
@@ -107,7 +108,7 @@ function parseFrontmatter(text) {
       data[key.trim()] = rest.join(':').trim().replace(/^["']|["']$/g, '');
     }
   });
-  data._body = text.replace(/^---\n[\s\S]*?\n---\n?/, '').trim();
+  data._body = normalized.replace
   return data;
 }
 
