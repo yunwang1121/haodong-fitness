@@ -99,7 +99,7 @@ const GITHUB_API = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/c
 
 function parseFrontmatter(text) {
   const normalized = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
-  const match = normalized.match
+  const match = normalized.match(/^---\n([\s\S]*?)\n---/);
   if (!match) return {};
   const data = {};
   match[1].split('\n').forEach(line => {
@@ -108,7 +108,7 @@ function parseFrontmatter(text) {
       data[key.trim()] = rest.join(':').trim().replace(/^["']|["']$/g, '');
     }
   });
-  data._body = normalized.replace
+  data._body = normalized.replace(/^---\n[\s\S]*?\n---\n?/, '').trim();
   return data;
 }
 
@@ -138,10 +138,9 @@ async function loadNews() {
   if (!grid) return;
   const items = await fetchGithubFolder('_data/news');
   if (!items.length) {
-  if (grid) grid.innerHTML = '<p style="text-align:center;color:#888;">暫無評價</p>';
-  if (homeGrid) homeGrid.innerHTML = '<p style="text-align:center;color:#888;">暫無評價</p>';
-  return;
-}
+    grid.innerHTML = '<p style="text-align:center;color:#888;">暫無消息</p>';
+    return;
+  }
   items.sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0));
   grid.innerHTML = items.map(item => {
     const date = item.date ? item.date.substring(0, 10).replace(/-/g, ' / ') : '';
@@ -166,10 +165,10 @@ async function loadReviews() {
   if (!grid && !homeGrid) return;
   const items = await fetchGithubFolder('_data/reviews');
   if (!items.length) {
-  if (grid) grid.innerHTML = '<p style="text-align:center;color:#888;">暫無評價</p>';
-  if (homeGrid) homeGrid.innerHTML = '<p style="text-align:center;color:#888;">暫無評價</p>';
-  return;
-}
+    if (grid) grid.innerHTML = '<p style="text-align:center;color:#888;">暫無評價</p>';
+    if (homeGrid) homeGrid.innerHTML = '<p style="text-align:center;color:#888;">暫無評價</p>';
+    return;
+  }
 
   if (grid) {
     grid.innerHTML = items.map(item => {
