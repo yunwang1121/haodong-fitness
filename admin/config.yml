@@ -29,7 +29,7 @@ collections:
       - { label: "學員姓名", name: "name", widget: "string" }
       - { label: "評分（1-5）", name: "rating", widget: "number", min: 1, max: 5, default: 5 }
       - { label: "訓練類型", name: "type", widget: "string", hint: "例如：核心訓練、體態雕塑" }
-      - { label: "評價內容", name: "body", widget: "text" }
+      - { label: "評價內容", name: "body", widget: "markdown" }
 
   - name: "pricing"
     label: "收費標準"
