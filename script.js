@@ -124,7 +124,7 @@ async function fetchGithubFolder(folder) {
         return fetch(rawUrl, { cache: 'no-store' }).then(r => r.text());
       })
     );
-    return contents.map(parseFrontmatter).filter(d => d.title);
+    return contents.map(parseFrontmatter).filter(d => d.name || d.title);
   } catch (e) {
     console.error('fetchGithubFolder error:', e);
     return [];
