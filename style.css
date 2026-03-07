@@ -190,7 +190,7 @@ ul { list-style: none; }
 
 .hero-title {
   font-family: var(--font-serif);
-  font-size: clamp(3rem, 8vw, 5.5rem);
+  font-size: clamp(2rem, 5vw, 3.5rem);
   font-weight: 700;
   color: var(--white);
   line-height: 1.2;
